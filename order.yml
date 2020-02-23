@@ -1,42 +1,21 @@
+spring:
+  profiles:
+    active: dev
+---
 server:
-  port: 8080
+  port: 8089
 spring:
   application:
-    name: client-user
+    name: server-order
+  profiles: dev
 eureka:
-  instance:
-    instance-id: user
-    lease-renewal-interval-in-seconds: 1
-    lease-expiration-duration-in-seconds: 3
-    prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://localhost:6061/eureka/
-feign:
-  client:
-    config:
-      default:
-        connectTimeout: 5000
-        readTimeout: 5000
-  hystrix:
-    enabled: true
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 20000
-      circuitBreaker:
-        requestVolumeThreshold: 5
-        sleepWindowInMilliseconds : 2000   #时间
-  threadpool:
-    default:
-      coreSize: 10  # 全局配置
-#    getPower:
-#      coreSize: 10
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+      defaultZone: http://eureka1.com:6061/eureka/
+  instance:
+    instance-id: order-0 #此实例注册到eureka服务端的唯一的实例ID
+    prefer-ip-address: true #是否显示IP地址
+    leaseRenewalIntervalInSeconds: 1 #eureka客户需要多长时间发送心跳给eureka服务器，表明它仍然活着,默认为30 秒 (与下面配置的单位都是秒)
+    leaseExpirationDurationInSeconds: 3 #Eureka服务器在接收到实例的最后一次发出的心跳后，需要等待多久才可以将此实例删除，默认为90秒
+xiaxin:
+  name: cxq
